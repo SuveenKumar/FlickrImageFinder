@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="FlickrImageFinder.UserControls.SearchPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FlickrImageFinder.UserControls" xmlns:customcontrols="clr-namespace:FlickrImageFinder.CustomControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.2*"/>
+            <ColumnDefinition Width="3.0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <local:Logo 
+            Margin="18"/>
+            <customcontrols:SearchBox
+                Grid.Column="1"
+                FontSize="20"
+                Margin="20,0,20,0"
+                Foreground="Gray"
+                FontStyle="Italic"
+                Padding="6"
+                Text="{Binding SearchText ,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                MinWidth="300"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"/>
+        <Button 
+            Grid.Column="2"
+            MinWidth="100"
+            Margin="30"
+            Content="Find"
+            FontSize="20"
+            MaxHeight="30"
+            Command="{Binding FindCommand ,RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+
+    </Grid>
+</UserControl>

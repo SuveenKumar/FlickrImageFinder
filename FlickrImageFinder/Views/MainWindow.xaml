@@ -1,0 +1,33 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlickrImageFinder" xmlns:usercontrols="clr-namespace:FlickrImageFinder.UserControls"
+        xmlns:ViewModels="clr-namespace:FlickrImageFinder.ViewModels" x:Class="FlickrImageFinder.MainWindow"
+        mc:Ignorable="d"
+        Title="ImageFinder" Height="800" Width="1400">
+    <Window.DataContext>
+        <ViewModels:MainViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.4*"/>
+        </Grid.ColumnDefinitions>
+        <usercontrols:SearchPanel
+            Margin="20,0,0,0"
+            Grid.ColumnSpan="2"
+            SearchText="{Binding Path=SearchStr,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+            FindCommand="{Binding FindButtonCommand}"
+            />
+        <usercontrols:ImagePanel 
+            Grid.Row="1"
+            Url="{Binding ImageList,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            />
+    </Grid>
+</Window>
