@@ -6,20 +6,26 @@ on:
 env:
   PROJECT_PATH: FlickrImageFinder/FlickrImageFinder.csproj
 
-jobs:
+jobs:      
   deploy:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-
+      - name: Setup FlickrImageFinder
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 3.1.x
-
+          
+      - name: Restore Dependencies
       - run: dotnet restore ${{ env.PROJECT_PATH }}
 
+      - name: Build Release Binaries
       - run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
+      
+      - name: Run Unit Tests
+      -  run: dotnet test --no-build --verbosity normal
 
+      - name: Publish Packages
       - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
 
       - uses: actions/create-release@v1
