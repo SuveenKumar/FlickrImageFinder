@@ -26,13 +26,13 @@ namespace FlickrImageFinderUnitTests
         //    Assert.AreEqual("FlickrImageFinder.ViewModels.MainViewModel",testWindow.DataContext.ToString());
         //}
 
-        [TestMethod]
-        public void CustomControl_SearchBox_Verify()
-        {
-            SearchBox testSearchBox = new SearchBox();
+        //[TestMethod]
+        //public void CustomControl_SearchBox_Verify()
+        //{
+        //    SearchBox testSearchBox = new SearchBox();
 
-            //Assert Default Values
-            Assert.AreEqual(TestHelper.PlaceHolderText, testSearchBox.Text);
-        }
+        //    //Assert Default Values
+        //    Assert.AreEqual(TestHelper.PlaceHolderText, testSearchBox.Text);
+        //}
     }
 }
