@@ -28,9 +28,9 @@ jobs:
       - uses: actions/create-release@v1
         id: create_release
         env:
-          GITHUB_TOKEN: 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
+          GITHUB_TOKEN: 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
         with:
-          tag_name: "v1.1"
+          tag_name: "v1.2"
           release_name: ${{ github.ref }}
 
       - uses: csexton/release-asset-action@v2
