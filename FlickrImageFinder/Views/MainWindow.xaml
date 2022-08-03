@@ -27,6 +27,7 @@
             />
         <usercontrols:ImagePanel 
             Grid.Row="1"
+            Grid.ColumnSpan="2"
             Url="{Binding ImageList,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             />
     </Grid>

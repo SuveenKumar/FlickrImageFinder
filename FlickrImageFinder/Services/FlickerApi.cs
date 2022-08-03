@@ -9,15 +9,20 @@ namespace FlickrImageFinder.Services
         private const string endPointUrl = @"https://api.flickr.com/services/feeds/photos_public.gne?format=json&tags=";
 
         public static SearchResultModel Responses;
-        public static JsonReader Reader;
+        public static JsonReader<SearchResultModel> Reader;
 
-        public static void LoadApi(string url)
+        public static void LoadApi(string searchText)
         {
+            //Initialize reader if not initialized. 
             if(Reader == null)
             {
-                Reader = new JsonReader();
+                Reader = new JsonReader<SearchResultModel>();
             }
-            Responses = Reader.FindResult(endPointUrl + url);
+
+            string queryString = endPointUrl + searchText;
+
+            //Update responses
+            Responses = Reader.FindResult(queryString);
         }
 
     }

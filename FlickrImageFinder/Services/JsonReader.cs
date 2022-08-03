@@ -4,7 +4,8 @@ using System.Text.Json;
 
 namespace FlickrImageFinder.Services
 {
-    public class JsonReader
+    //Generic Json Reader class
+    public class JsonReader<T>
     {
         public WebClient webclient;
 
@@ -13,22 +14,18 @@ namespace FlickrImageFinder.Services
             webclient = new WebClient();
         }
         
-        public SearchResultModel FindResult(string url)
+        public T FindResult(string url)
         {
             var jsonstr = Read(url);
             var json = jsonstr.Substring(15);
             var res = json.Remove(json.Length - 1, 1);
-            SearchResultModel info = JsonSerializer.Deserialize<SearchResultModel>(res);
+            T info = JsonSerializer.Deserialize<T>(res);
             return info;
         }
 
         private string Read(string url)
         {
-            string s;
-            using (WebClient client = new WebClient())
-            {
-                s = client.DownloadString(url);
-            }
+            string s= webclient.DownloadString(url);
             return s;
         }
 

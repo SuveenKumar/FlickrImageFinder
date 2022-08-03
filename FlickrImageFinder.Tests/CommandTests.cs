@@ -32,7 +32,7 @@ namespace FlickrImageFinderUnitTests
 
             //Assert
             Assert.IsNotNull(testList);
-            Assert.IsNotNull(testList.Count == 20);
+            Assert.AreEqual(20, testList.Count);
         }
     }
 }

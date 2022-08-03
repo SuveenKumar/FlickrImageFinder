@@ -12,13 +12,13 @@ namespace FlickrImageFinder.ViewModels
 {
     public class MainViewModel:ViewModelBase
     {
-        public FindCommand FindButtonCommand { get; }
+        public FindCommand FindButtonCommand { get; }  //Bind to Find button
 
-        public ObservableCollection<ImageModel> ImageList { get; set; }
+        public ObservableCollection<ImageModel> ImageList { get; set; }  //Bind to Image Panel Items source.
 
-        public string SearchStr { get; set; }
+        public string SearchStr { get; set; } //Bind to Search box text.
 
-        public Func<string> searchTextFn;
+        public Func<string> searchTextFn;  //fn pointer for getting image urls list from nodel
 
         public MainViewModel()
         {
@@ -32,6 +32,7 @@ namespace FlickrImageFinder.ViewModels
 
             ImageList = new ObservableCollection<ImageModel>();
 
+            //Invoked when list is updated.
             FindButtonCommand.OnListUpdated += (list)=>
             {
                 foreach(var i in list)

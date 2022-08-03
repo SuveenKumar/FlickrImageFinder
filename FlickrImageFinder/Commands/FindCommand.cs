@@ -25,9 +25,12 @@ namespace FlickrImageFinder.Commands
 
         public override void Execute(object parameter)
         {
+            //Clear current list in ViewModel
             clearListFn.Invoke();
 
             var queryString = searchTextFn.Invoke();
+
+            //Return when query string is null
             if (queryString == null)
             {
                 return;
@@ -41,6 +44,7 @@ namespace FlickrImageFinder.Commands
                 imgUrl.Add(i.media.m);
             }
             
+            //Invoke when models are updated.
             OnListUpdated.Invoke(imgUrl);
         }
     }
