@@ -28,12 +28,12 @@ namespace FlickrImageFinder.Commands
             clearListFn.Invoke();
 
             var queryString = searchTextFn.Invoke();
-            if (queryString != null)
+            if (queryString == null)
             {
-
+                return;
             }
-            FlickerApi api = new FlickerApi(queryString);
-            SearchResultModel result = api.responses;
+            FlickerApi.LoadApi(queryString);
+            SearchResultModel result = FlickerApi.Responses;
             List<string> imgUrl = new List<string>();
 
             foreach(var i in result.items)

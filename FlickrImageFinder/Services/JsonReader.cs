@@ -15,7 +15,6 @@ namespace FlickrImageFinder.Services
         
         public SearchResultModel FindResult(string url)
         {
-            url = @"https://api.flickr.com/services/feeds/photos_public.gne?format=json&tags="+url;
             var jsonstr = Read(url);
             var json = jsonstr.Substring(15);
             var res = json.Remove(json.Length - 1, 1);
