@@ -30,5 +30,6 @@
             Grid.ColumnSpan="2"
             Url="{Binding ImageList,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             />
+        <TextBlock Visibility="{Binding Path=IsPopupVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" FontSize="100" Text="No Images Found"/>
     </Grid>
 </Window>

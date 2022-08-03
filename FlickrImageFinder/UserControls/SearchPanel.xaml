@@ -15,6 +15,7 @@
         <local:Logo 
             Margin="18"/>
             <customcontrols:SearchBox
+                x:Name="searchBox"
                 Grid.Column="1"
                 FontSize="20"
                 Margin="20,0,20,0"
@@ -26,12 +27,14 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"/>
         <Button 
+            x:Name="btn"
             Grid.Column="2"
             MinWidth="100"
             Margin="30"
             Content="Find"
             FontSize="20"
             MaxHeight="30"
+
             Command="{Binding FindCommand ,RelativeSource={RelativeSource AncestorType=UserControl}}"/>
 
     </Grid>

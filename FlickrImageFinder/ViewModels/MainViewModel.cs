@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace FlickrImageFinder.ViewModels
@@ -20,8 +21,11 @@ namespace FlickrImageFinder.ViewModels
 
         public Func<string> searchTextFn;  //fn pointer for getting image urls list from nodel
 
+        public Visibility IsPopupVisible { get; set; }
+
         public MainViewModel()
         {
+            IsPopupVisible = Visibility.Hidden;
             SearchStr = "Search Image";
 
             searchTextFn += () => { return SearchStr; };
@@ -40,6 +44,16 @@ namespace FlickrImageFinder.ViewModels
                     ImageList.Add(new ImageModel() { Img = i });
 
                 }
+                if (list.Count == 0)
+                {
+                    IsPopupVisible = Visibility.Visible;
+                }
+                else
+                {
+                    IsPopupVisible = Visibility.Hidden;
+                }
+                OnPropertyChanged(nameof(IsPopupVisible));
+
                 OnPropertyChanged(nameof(ImageList));
             };
         }

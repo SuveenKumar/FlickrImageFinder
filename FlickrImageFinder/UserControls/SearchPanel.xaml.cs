@@ -23,6 +23,19 @@ namespace FlickrImageFinder.UserControls
         public SearchPanel()
         {
             InitializeComponent();
+
+            searchBox.TextChanged += (o,e) => 
+            {
+                if (searchBox.Text.Length == 0)
+                {
+                    btn.IsEnabled = false;
+                }
+                else
+                {
+                    btn.IsEnabled = true;
+                }
+            };
+
         }
 
         public ICommand FindCommand

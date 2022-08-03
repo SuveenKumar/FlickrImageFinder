@@ -13,6 +13,8 @@ namespace FlickrImageFinder.CustomControls
     {
         const string PlaceHoldertext = "Search Image";
 
+        public bool IsTextPresent { get; set; }
+
         public SearchBox()
         {
             InitializedDefaultProperties();
@@ -34,6 +36,7 @@ namespace FlickrImageFinder.CustomControls
                 if(Text == PlaceHoldertext)
                 {
                     Text = "";
+                    IsTextPresent = false;
                     Foreground = Brushes.Black;
                     FontStyle = FontStyles.Normal;
                 }
@@ -43,6 +46,7 @@ namespace FlickrImageFinder.CustomControls
             {
                 if (Text.Length == 0)
                 {
+                    IsTextPresent = false;
                     Text = PlaceHoldertext;
                     Foreground = Brushes.Gray;
                     FontStyle = FontStyles.Italic;
