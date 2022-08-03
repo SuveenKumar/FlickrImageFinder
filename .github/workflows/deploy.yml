@@ -3,8 +3,6 @@ name: "Deploy FlickrImageFinder"
 on:
   push:
     branches: ["master"]
-    tags:
-     - "fif/v*"
 env:
   PROJECT_PATH: FlickrImageFinder/FlickrImageFinder.csproj
   UT_PROJECT_PATH: FlickrImageFinder.Tests/FlickrImageFinder.Tests.csproj
@@ -15,16 +13,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: actions/setup-dotnet@v1
+      - uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 3.1.x
 
+      - uses: actions/restore-dependencies@v2
       - run: dotnet restore ${{ env.PROJECT_PATH }}
 
+      - uses: actions/build-release@v2
       - run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
       
+      - uses: actions/test-release@v2
       - run: dotnet test ${{ env.UT_PROJECT_PATH }} -c Release --verbosity normal
 
+      - uses: actions/publish-release@v2
       - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
 
       - uses: actions/create-release@v1
@@ -32,7 +34,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
+          tag_name: "v2.0.1"
           release_name: ${{ github.ref }}
 
       - uses: csexton/release-asset-action@v2
