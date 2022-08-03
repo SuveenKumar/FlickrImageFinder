@@ -5,7 +5,7 @@ on:
     branches: ["master"]
 env:
   PROJECT_PATH: FlickrImageFinder/FlickrImageFinder.csproj
-  UT_PROJECT_PATH: FlickrImageFinder.Test/FlickrImageFinder.Test.csproj
+  UT_PROJECT_PATH: FlickrImageFinder.Tests/FlickrImageFinder.Tests.csproj
 
 jobs:
   deploy:
@@ -30,7 +30,7 @@ jobs:
         env:
           GITHUB_TOKEN: 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
         with:
-          tag_name: "1.0"
+          tag_name: "v1.1"
           release_name: ${{ github.ref }}
 
       - uses: csexton/release-asset-action@v2
