@@ -21,14 +21,14 @@ jobs:
 
       - run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
       
-      - run: dotnet test ${{ env.UT_PROJECT_PATH }} -c Release --no-build --verbosity normal
+      - run: dotnet test ${{ env.UT_PROJECT_PATH }} -c Release --verbosity normal
 
       - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
 
       - uses: actions/create-release@v1
         id: create_release
         env:
-          GITHUB_TOKEN: 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
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: "v1.2"
           release_name: ${{ github.ref }}
