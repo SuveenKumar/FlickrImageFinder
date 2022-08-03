@@ -3,6 +3,7 @@ name: "Deploy FlickrImageFinder"
 on:
   push:
     branches: ["master"]
+    
 env:
   PROJECT_PATH: FlickrImageFinder/FlickrImageFinder.csproj
 
