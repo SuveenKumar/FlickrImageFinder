@@ -25,7 +25,9 @@
             Margin="20,0,0,0"
             Grid.ColumnSpan="2"
             SearchText="{Binding Path=SearchStr,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-            FindCommand="{Binding FindButtonCommand}"/>
+            FindCommand="{Binding FindButtonCommand}"
+            BackCommand="{Binding BackButtonCommand}"
+            Enabled="{Binding BackButtonEnabled}"/>
         <Frame NavigationUIVisibility="Hidden" Content="{Binding CurrentViewModel}" Grid.Row="1" Grid.ColumnSpan="2">
             <Frame.Resources>
                 <DataTemplate DataType="{x:Type ViewModels:ImageListPageViewModel}">

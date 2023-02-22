@@ -17,14 +17,18 @@ namespace FlickrImageFinder.ViewModels
     public class MainViewModel : ViewModelBase
     {
         public ViewModelBase CurrentViewModel { get; set; }
+        public List<string> SearchHistory { get; set; }
+        public bool BackButtonEnabled { get; set; } 
         public ICommand FindButtonCommand { get; }  //Bind to Find button
+        public ICommand BackButtonCommand { get; }  //Bind to Find button
         public string SearchStr { get; set; } //Bind to Search box text.
-
         public MainViewModel()
         {
+            BackButtonEnabled = false;
             SearchStr = Constants.PlaceHolderText;
-
+            SearchHistory=new List<string>();
             FindButtonCommand = new ButtonCommand(ExecuteFindCommand);
+            BackButtonCommand = new ButtonCommand(ExecuteBackCommand);
         }
 
         private void ExecuteFindCommand(object obj)
@@ -33,10 +37,18 @@ namespace FlickrImageFinder.ViewModels
             if (SearchStr == null || SearchStr== Constants.PlaceHolderText)
             {
                 return;
-            }
+            }   
+            SearchHistory.Add(SearchStr);
+            StartSearchProcess();
+            BackButtonEnabled = true;
+            OnPropertyChanged(nameof(BackButtonEnabled));
+        }
+
+        private void StartSearchProcess()
+        {
             FlickerApi.LoadApi(SearchStr);
             SearchResultModel result = FlickerApi.Responses;
-            var imgUrl = new ObservableCollection<ImageModel>();
+            var imgUrl = new List<ImageModel>();
 
             foreach (var i in result.items)
             {
@@ -44,7 +56,33 @@ namespace FlickrImageFinder.ViewModels
             }
             DisplayImageResults(imgUrl);
         }
-        private void DisplayImageResults(ObservableCollection<ImageModel> list)
+
+        private void ExecuteBackCommand(object obj)
+        {
+            if (SearchHistory != null && SearchHistory.Count == 1)
+            {
+                CurrentViewModel = null;
+                SearchStr = "";
+                SearchHistory.Clear();
+                BackButtonEnabled = false;
+                OnPropertyChanged(nameof(BackButtonEnabled));
+                OnPropertyChanged(nameof(SearchStr));
+                OnPropertyChanged(nameof(CurrentViewModel));
+            }
+
+            if (SearchHistory!=null && SearchHistory.Count> 1)
+            {
+                if (CurrentViewModel.GetType() == typeof(ImageListPageViewModel))
+                {
+                        SearchHistory.RemoveAt(SearchHistory.Count - 1);
+                }
+                SearchStr = SearchHistory[SearchHistory.Count - 1];
+                OnPropertyChanged(nameof(BackButtonEnabled));
+                OnPropertyChanged(nameof(SearchStr));
+                StartSearchProcess();
+            }
+        }
+        private void DisplayImageResults(List<ImageModel> list)
         {
             CurrentViewModel = new ImageListPageViewModel();
             var imageListVM = CurrentViewModel as ImageListPageViewModel;

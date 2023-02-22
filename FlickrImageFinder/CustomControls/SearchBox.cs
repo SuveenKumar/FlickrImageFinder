@@ -51,6 +51,17 @@ namespace FlickrImageFinder.CustomControls
                     FontStyle = FontStyles.Italic;
                 }
             };
+
+            TextChanged += (s, e) =>
+            {
+                if (Text.Length == 0 && !IsFocused)
+                {
+                    IsTextPresent = false;
+                    Text = Constants.PlaceHolderText;
+                    Foreground = Brushes.Gray;
+                    FontStyle = FontStyles.Italic;
+                }
+            };
         }
     }
 }

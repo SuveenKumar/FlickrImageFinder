@@ -30,15 +30,22 @@ namespace FlickrImageFinder.UserControls
             {
                 if (searchBox.Text.Length == 0 || searchBox.Text== Constants.PlaceHolderText)
                 {
-                    btn.IsEnabled = false;
+                    findBtn.IsEnabled = false;
                 }
                 else
                 {
-                    btn.IsEnabled = true;
+                    findBtn.IsEnabled = true;
                 }
             };
 
         }
+        public bool Enabled
+        {
+            get { return (bool)GetValue(EnabledProperty); }
+            set { SetValue(EnabledProperty, value); }
+        }
+
+        public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register("Enabled", typeof(bool), typeof(UserControl), new UIPropertyMetadata(null));
 
         public ICommand FindCommand
         {
@@ -47,7 +54,15 @@ namespace FlickrImageFinder.UserControls
         }
 
         public static readonly DependencyProperty FindCommandProperty = DependencyProperty.Register("FindCommand", typeof(ICommand), typeof(UserControl), new UIPropertyMetadata(null));
-   
+
+        public ICommand BackCommand
+        {
+            get { return (ICommand)GetValue(BackCommandProperty); }
+            set { SetValue(BackCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty BackCommandProperty = DependencyProperty.Register("BackCommand", typeof(ICommand), typeof(UserControl), new UIPropertyMetadata(null));
+
         public string SearchText
         {
             get { return (string)GetValue(SearchTextProperty); }

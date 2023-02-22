@@ -13,7 +13,7 @@ namespace FlickrImageFinder.ViewModels
 {
     public class ImageListPageViewModel : ViewModelBase
     {
-        public ObservableCollection<ImageModel> ImageList { get; set; }  //Bind to Image Panel Items source.
+        public List<ImageModel> ImageList { get; set; }  //Bind to Image Panel Items source.
 
         public Visibility IsPopupVisible { get; set; }
 
@@ -26,7 +26,7 @@ namespace FlickrImageFinder.ViewModels
             SelectImageCommand = new ButtonCommand(ExecuteSelectCommand);
         }
 
-        public void UpdateImageList(ObservableCollection<ImageModel> imageList)
+        public void UpdateImageList(List<ImageModel> imageList)
         {
             ImageList = imageList;
             if (ImageList != null)
