@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlickrImageFinder.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,8 +12,6 @@ namespace FlickrImageFinder.CustomControls
 {
     public class SearchBox:TextBox
     {
-        const string PlaceHoldertext = "Search Image";
-
         public bool IsTextPresent { get; set; }
 
         public SearchBox()
@@ -23,7 +22,7 @@ namespace FlickrImageFinder.CustomControls
 
         private void InitializedDefaultProperties()
         {
-            Text = PlaceHoldertext;
+            Text = Constants.PlaceHolderText;
             Foreground = Brushes.Gray;
             FontStyle = FontStyles.Italic;
             VerticalAlignment = VerticalAlignment.Center;
@@ -33,7 +32,7 @@ namespace FlickrImageFinder.CustomControls
         {
             GotFocus += (s, e) =>
             {
-                if(Text == PlaceHoldertext)
+                if(Text == Constants.PlaceHolderText)
                 {
                     Text = "";
                     IsTextPresent = false;
@@ -47,7 +46,7 @@ namespace FlickrImageFinder.CustomControls
                 if (Text.Length == 0)
                 {
                     IsTextPresent = false;
-                    Text = PlaceHoldertext;
+                    Text = Constants.PlaceHolderText;
                     Foreground = Brushes.Gray;
                     FontStyle = FontStyles.Italic;
                 }

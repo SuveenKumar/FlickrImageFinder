@@ -17,12 +17,13 @@ namespace FlickrImageFinder.ViewModels
 
         public Visibility IsPopupVisible { get; set; }
 
-        public SelectCommand SelectImageCommand { get; set; }
+        public ICommand SelectImageCommand { get; set; }
 
+        public Action<ImageModel> GetSelectedImage;
         public ImageListPageViewModel()
         {
             IsPopupVisible = Visibility.Hidden;
-            SelectImageCommand = new SelectCommand();
+            SelectImageCommand = new ButtonCommand(ExecuteSelectCommand);
         }
 
         public void UpdateImageList(ObservableCollection<ImageModel> imageList)
@@ -42,10 +43,10 @@ namespace FlickrImageFinder.ViewModels
             }
             OnPropertyChanged(nameof(ImageList));
         }
-
-        public void RegisterSelectedImageHandler(Action<ImageModel> fn)
+        public void ExecuteSelectCommand(object parameter)
         {
-            SelectImageCommand.GetSelectedImage = fn;
+            var curImg = new ImageModel() { Img = (string)parameter };
+            GetSelectedImage.Invoke(curImg);
         }
     }
     

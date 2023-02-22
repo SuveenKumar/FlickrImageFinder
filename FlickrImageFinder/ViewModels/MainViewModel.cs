@@ -1,9 +1,12 @@
 ﻿using FlickrImageFinder.Commands;
+using FlickrImageFinder.Common;
 using FlickrImageFinder.Models;
+using FlickrImageFinder.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,30 +17,38 @@ namespace FlickrImageFinder.ViewModels
     public class MainViewModel : ViewModelBase
     {
         public ViewModelBase CurrentViewModel { get; set; }
-        public FindCommand FindButtonCommand { get; }  //Bind to Find button
-
+        public ICommand FindButtonCommand { get; }  //Bind to Find button
         public string SearchStr { get; set; } //Bind to Search box text.
-
-        public Func<string> searchTextFn;  //fn pointer for getting image urls list from nodel
 
         public MainViewModel()
         {
-            SearchStr = "Search Image";
+            SearchStr = Constants.PlaceHolderText;
 
-            searchTextFn += () => { return SearchStr; };
+            FindButtonCommand = new ButtonCommand(ExecuteFindCommand);
+        }
 
-            FindButtonCommand = new FindCommand(searchTextFn);
-
-            FindButtonCommand.GetList += (s) => 
+        private void ExecuteFindCommand(object obj)
+        {
+            //Return when query string is null
+            if (SearchStr == null || SearchStr== Constants.PlaceHolderText)
             {
-                DisplayImageResults(s);
-            };
+                return;
+            }
+            FlickerApi.LoadApi(SearchStr);
+            SearchResultModel result = FlickerApi.Responses;
+            var imgUrl = new ObservableCollection<ImageModel>();
+
+            foreach (var i in result.items)
+            {
+                imgUrl.Add(new ImageModel() { Img = i.media.m });
+            }
+            DisplayImageResults(imgUrl);
         }
         private void DisplayImageResults(ObservableCollection<ImageModel> list)
         {
             CurrentViewModel = new ImageListPageViewModel();
             var imageListVM = CurrentViewModel as ImageListPageViewModel;
-            imageListVM.RegisterSelectedImageHandler(DisplaySelectedImage);
+            imageListVM.GetSelectedImage += DisplaySelectedImage;
             imageListVM.UpdateImageList(list);
             OnPropertyChanged(nameof(CurrentViewModel));
         }
