@@ -8,6 +8,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ImageListPage">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Page.Resources>
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <ItemsControl x:Name="wp" ItemsSource="{Binding ImageList}">
@@ -39,6 +42,6 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        <TextBlock Visibility="{Binding Path=IsPopupVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" FontSize="100" Text="No Images Found"/>
+        <TextBlock Visibility= "{Binding IsNoResultVisible, Converter={StaticResource BoolToVis}}" Grid.Row="1" FontSize="100" Text="No Images Found"/>
     </Grid>
 </Page>

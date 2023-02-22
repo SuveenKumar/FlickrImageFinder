@@ -16,12 +16,50 @@ namespace FlickrImageFinder.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        public ViewModelBase CurrentViewModel { get; set; }
+        private ViewModelBase _currentViewModel;
+        public ViewModelBase CurrentViewModel 
+        {
+            get
+            {
+                return _currentViewModel;
+            }
+            set
+            {
+                _currentViewModel = value;
+                OnPropertyChanged(nameof(CurrentViewModel));
+            }
+        }
+        private bool _backButtonEnabled;
+        public bool BackButtonEnabled 
+        {
+            get 
+            {
+                return _backButtonEnabled; 
+            } 
+            set 
+            {
+                _backButtonEnabled = value;
+                OnPropertyChanged(nameof(BackButtonEnabled));
+            }
+        }
+
+        private string _searchStr;
+        public string SearchStr 
+        { 
+            get 
+            {
+                return _searchStr;
+            }
+            set 
+            {
+                _searchStr = value; 
+                OnPropertyChanged(nameof(SearchStr));
+            }
+        } //Bind to Search box text.
+
         public List<string> SearchHistory { get; set; }
-        public bool BackButtonEnabled { get; set; } 
         public ICommand FindButtonCommand { get; }  //Bind to Find button
         public ICommand BackButtonCommand { get; }  //Bind to Find button
-        public string SearchStr { get; set; } //Bind to Search box text.
         public MainViewModel()
         {
             BackButtonEnabled = false;
@@ -41,14 +79,13 @@ namespace FlickrImageFinder.ViewModels
             SearchHistory.Add(SearchStr);
             StartSearchProcess();
             BackButtonEnabled = true;
-            OnPropertyChanged(nameof(BackButtonEnabled));
         }
 
         private void StartSearchProcess()
         {
             FlickerApi.LoadApi(SearchStr);
             SearchResultModel result = FlickerApi.Responses;
-            var imgUrl = new List<ImageModel>();
+            var imgUrl = new ObservableCollection<ImageModel>();
 
             foreach (var i in result.items)
             {
@@ -65,9 +102,6 @@ namespace FlickrImageFinder.ViewModels
                 SearchStr = "";
                 SearchHistory.Clear();
                 BackButtonEnabled = false;
-                OnPropertyChanged(nameof(BackButtonEnabled));
-                OnPropertyChanged(nameof(SearchStr));
-                OnPropertyChanged(nameof(CurrentViewModel));
             }
 
             if (SearchHistory!=null && SearchHistory.Count> 1)
@@ -77,25 +111,21 @@ namespace FlickrImageFinder.ViewModels
                         SearchHistory.RemoveAt(SearchHistory.Count - 1);
                 }
                 SearchStr = SearchHistory[SearchHistory.Count - 1];
-                OnPropertyChanged(nameof(BackButtonEnabled));
-                OnPropertyChanged(nameof(SearchStr));
                 StartSearchProcess();
             }
         }
-        private void DisplayImageResults(List<ImageModel> list)
+        private void DisplayImageResults(ObservableCollection<ImageModel> list)
         {
             CurrentViewModel = new ImageListPageViewModel();
             var imageListVM = CurrentViewModel as ImageListPageViewModel;
             imageListVM.GetSelectedImage += DisplaySelectedImage;
             imageListVM.UpdateImageList(list);
-            OnPropertyChanged(nameof(CurrentViewModel));
         }
         private void DisplaySelectedImage(ImageModel image)
         {
             CurrentViewModel = new ImageSelectPageViewModel();
             var imageSelectVM = CurrentViewModel as ImageSelectPageViewModel;
             imageSelectVM.UpdateSelectedImage(image);
-            OnPropertyChanged(nameof(CurrentViewModel));
         }
     }
 }

@@ -7,12 +7,23 @@ namespace FlickrImageFinder.ViewModels
 {
     public class ImageSelectPageViewModel:ViewModelBase
     {
-        public ImageModel imageModel { get; set; }
+        private ImageModel _imageModel;
+        public ImageModel ImageModel 
+        { 
+            get 
+            {
+                return _imageModel;
+            }
+            set
+            {
+                _imageModel= value;
+                OnPropertyChanged(nameof(ImageModel));
+            }
+        }
 
         public void UpdateSelectedImage(ImageModel img)
         {
-            imageModel = img;
-            OnPropertyChanged(nameof(imageModel));
+            ImageModel = img;
         }
     }
 }

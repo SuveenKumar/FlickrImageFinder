@@ -13,35 +13,45 @@ namespace FlickrImageFinder.ViewModels
 {
     public class ImageListPageViewModel : ViewModelBase
     {
-        public List<ImageModel> ImageList { get; set; }  //Bind to Image Panel Items source.
+        public ObservableCollection<ImageModel> ImageList { get; set; }  //Bind to Image Panel Items source.
 
-        public Visibility IsPopupVisible { get; set; }
+        private bool _isNoResultVisible;
+        public bool IsNoResultVisible
+        {
+            get
+            {
+                return _isNoResultVisible;
+            }
+            set
+            {
+                _isNoResultVisible = value;
+                OnPropertyChanged(nameof(IsNoResultVisible));
+            }
+        }
 
         public ICommand SelectImageCommand { get; set; }
 
         public Action<ImageModel> GetSelectedImage;
         public ImageListPageViewModel()
         {
-            IsPopupVisible = Visibility.Hidden;
+            _isNoResultVisible = false;
             SelectImageCommand = new ButtonCommand(ExecuteSelectCommand);
         }
 
-        public void UpdateImageList(List<ImageModel> imageList)
+        public void UpdateImageList(ObservableCollection<ImageModel> imageList)
         {
             ImageList = imageList;
             if (ImageList != null)
             {
                 if (ImageList.Count == 0)
                 {
-                    IsPopupVisible = Visibility.Visible;
+                    _isNoResultVisible = true;
                 }
                 else
                 {
-                    IsPopupVisible = Visibility.Hidden;
+                    _isNoResultVisible = false;
                 }
-                OnPropertyChanged(nameof(IsPopupVisible));
             }
-            OnPropertyChanged(nameof(ImageList));
         }
         public void ExecuteSelectCommand(object parameter)
         {
