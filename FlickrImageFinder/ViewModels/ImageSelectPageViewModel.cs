@@ -8,5 +8,11 @@ namespace FlickrImageFinder.ViewModels
     public class ImageSelectPageViewModel:ViewModelBase
     {
         public ImageModel imageModel { get; set; }
+
+        public void UpdateSelectedImage(ImageModel img)
+        {
+            imageModel = img;
+            OnPropertyChanged(nameof(imageModel));
+        }
     }
 }

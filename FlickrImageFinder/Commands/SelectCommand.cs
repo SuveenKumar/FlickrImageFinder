@@ -8,11 +8,11 @@ namespace FlickrImageFinder.Commands
 {
     public class SelectCommand : CommandBase
     {
-        public Action<string> selectImageFn;
-
+        public Action<ImageModel> GetSelectedImage { get; set; }
         public override void Execute(object parameter)
         {
-            selectImageFn.Invoke((string)parameter);
+            var curImg=new ImageModel() { Img= (string)parameter };
+            GetSelectedImage.Invoke(curImg);
         }
     }
 }

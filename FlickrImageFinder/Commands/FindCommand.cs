@@ -2,6 +2,7 @@
 using FlickrImageFinder.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,11 +11,7 @@ namespace FlickrImageFinder.Commands
 {
     public class FindCommand:CommandBase
     {
-        public delegate void ListUpdatedFn(List<string> imgUrl);
-        public ListUpdatedFn OnListUpdated;
-
-        public delegate void ClearListFn();
-        public ClearListFn clearListFn;
+        public Action<ObservableCollection<ImageModel>> GetList;
 
         private Func<string> searchTextFn;
 
@@ -25,9 +22,6 @@ namespace FlickrImageFinder.Commands
 
         public override void Execute(object parameter)
         {
-            //Clear current list in ViewModel
-            clearListFn.Invoke();
-
             var queryString = searchTextFn.Invoke();
 
             //Return when query string is null
@@ -37,15 +31,15 @@ namespace FlickrImageFinder.Commands
             }
             FlickerApi.LoadApi(queryString);
             SearchResultModel result = FlickerApi.Responses;
-            List<string> imgUrl = new List<string>();
+            var imgUrl = new ObservableCollection<ImageModel>();
 
             foreach(var i in result.items)
             {
-                imgUrl.Add(i.media.m);
+                imgUrl.Add(new ImageModel() { Img=i.media.m }) ;
             }
             
             //Invoke when models are updated.
-            OnListUpdated.Invoke(imgUrl);
+            GetList.Invoke(imgUrl);
         }
     }
 }

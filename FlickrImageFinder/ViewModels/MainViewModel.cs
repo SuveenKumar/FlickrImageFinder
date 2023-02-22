@@ -14,10 +14,7 @@ namespace FlickrImageFinder.ViewModels
     public class MainViewModel : ViewModelBase
     {
         public ViewModelBase CurrentViewModel { get; set; }
-
         public FindCommand FindButtonCommand { get; }  //Bind to Find button
-
-        public ObservableCollection<ImageModel> ImageList { get; set; }  //Bind to Image Panel Items source.
 
         public string SearchStr { get; set; } //Bind to Search box text.
 
@@ -31,40 +28,25 @@ namespace FlickrImageFinder.ViewModels
 
             FindButtonCommand = new FindCommand(searchTextFn);
 
-            FindButtonCommand.clearListFn += () => { ImageList.Clear(); };
-
-            ImageList = new ObservableCollection<ImageModel>();
+            FindButtonCommand.GetList += (s) => 
+            {
+                DisplayImageResults(s);
+            };
+        }
+        private void DisplayImageResults(ObservableCollection<ImageModel> list)
+        {
             CurrentViewModel = new ImageListPageViewModel();
-            ((ImageListPageViewModel)CurrentViewModel).imageListFn += (s) =>
-            {
-                ((ImageListPageViewModel)CurrentViewModel).ImageList = ImageList;
-            };
-            //Invoked when list is updated.
-            FindButtonCommand.OnListUpdated += (list)=>
-            {
-                
-                foreach (var i in list)
-                {
-                    ImageList.Add(new ImageModel() { Img = i });
-
-                }
-                CurrentViewModel = new ImageListPageViewModel();
-                ((ImageListPageViewModel)CurrentViewModel).imageListFn += (s) =>
-                {
-                    ((ImageListPageViewModel)CurrentViewModel).ImageList = ImageList;
-                };
-                ((ImageListPageViewModel)CurrentViewModel).imageListFn.Invoke(ImageList);
-                ((ImageListPageViewModel)CurrentViewModel).SelectImageCommand = new SelectCommand();
-                var x = ((SelectCommand)((ImageListPageViewModel)CurrentViewModel).SelectImageCommand);
-                x.selectImageFn += (s) =>
-                {
-                    CurrentViewModel = new ImageSelectPageViewModel();
-                    ((ImageSelectPageViewModel)CurrentViewModel).imageModel = new ImageModel() { Img = s.ToString() };
-                    OnPropertyChanged(nameof(CurrentViewModel));
-                };
-                OnPropertyChanged(nameof(CurrentViewModel));
-            };
-           
+            var imageListVM = CurrentViewModel as ImageListPageViewModel;
+            imageListVM.RegisterSelectedImageHandler(DisplaySelectedImage);
+            imageListVM.UpdateImageList(list);
+            OnPropertyChanged(nameof(CurrentViewModel));
+        }
+        private void DisplaySelectedImage(ImageModel image)
+        {
+            CurrentViewModel = new ImageSelectPageViewModel();
+            var imageSelectVM = CurrentViewModel as ImageSelectPageViewModel;
+            imageSelectVM.UpdateSelectedImage(image);
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
     }
 }
