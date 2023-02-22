@@ -1,6 +1,8 @@
-﻿using System;
+﻿using FlickrImageFinder.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,7 +28,7 @@ namespace FlickrImageFinder.UserControls
 
             searchBox.TextChanged += (o,e) => 
             {
-                if (searchBox.Text.Length == 0)
+                if (searchBox.Text.Length == 0 || searchBox.Text== Constants.PlaceHolderText)
                 {
                     btn.IsEnabled = false;
                 }
