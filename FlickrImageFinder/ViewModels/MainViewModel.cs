@@ -11,8 +11,10 @@ using System.Windows.Input;
 
 namespace FlickrImageFinder.ViewModels
 {
-    public class MainViewModel:ViewModelBase
+    public class MainViewModel : ViewModelBase
     {
+        public ViewModelBase CurrentViewModel { get; set; }
+
         public FindCommand FindButtonCommand { get; }  //Bind to Find button
 
         public ObservableCollection<ImageModel> ImageList { get; set; }  //Bind to Image Panel Items source.
@@ -21,11 +23,8 @@ namespace FlickrImageFinder.ViewModels
 
         public Func<string> searchTextFn;  //fn pointer for getting image urls list from nodel
 
-        public Visibility IsPopupVisible { get; set; }
-
         public MainViewModel()
         {
-            IsPopupVisible = Visibility.Hidden;
             SearchStr = "Search Image";
 
             searchTextFn += () => { return SearchStr; };
@@ -35,27 +34,37 @@ namespace FlickrImageFinder.ViewModels
             FindButtonCommand.clearListFn += () => { ImageList.Clear(); };
 
             ImageList = new ObservableCollection<ImageModel>();
-
+            CurrentViewModel = new ImageListPageViewModel();
+            ((ImageListPageViewModel)CurrentViewModel).imageListFn += (s) =>
+            {
+                ((ImageListPageViewModel)CurrentViewModel).ImageList = ImageList;
+            };
             //Invoked when list is updated.
             FindButtonCommand.OnListUpdated += (list)=>
             {
-                foreach(var i in list)
+                
+                foreach (var i in list)
                 {
                     ImageList.Add(new ImageModel() { Img = i });
 
                 }
-                if (list.Count == 0)
+                CurrentViewModel = new ImageListPageViewModel();
+                ((ImageListPageViewModel)CurrentViewModel).imageListFn += (s) =>
                 {
-                    IsPopupVisible = Visibility.Visible;
-                }
-                else
+                    ((ImageListPageViewModel)CurrentViewModel).ImageList = ImageList;
+                };
+                ((ImageListPageViewModel)CurrentViewModel).imageListFn.Invoke(ImageList);
+                ((ImageListPageViewModel)CurrentViewModel).SelectImageCommand = new SelectCommand();
+                var x = ((SelectCommand)((ImageListPageViewModel)CurrentViewModel).SelectImageCommand);
+                x.selectImageFn += (s) =>
                 {
-                    IsPopupVisible = Visibility.Hidden;
-                }
-                OnPropertyChanged(nameof(IsPopupVisible));
-
-                OnPropertyChanged(nameof(ImageList));
+                    CurrentViewModel = new ImageSelectPageViewModel();
+                    ((ImageSelectPageViewModel)CurrentViewModel).imageModel = new ImageModel() { Img = s.ToString() };
+                    OnPropertyChanged(nameof(CurrentViewModel));
+                };
+                OnPropertyChanged(nameof(CurrentViewModel));
             };
+           
         }
     }
 }
