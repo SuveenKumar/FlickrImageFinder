@@ -24,75 +24,14 @@ namespace FlickrImageFinder.Views
         {
             InitializeComponent();
         }
-        private void DownloadImage(string url)
+
+        private void Image_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            var dialog = new SaveFileDialog();
-            dialog.Filter = "JPeg Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif";
-
-            var result = dialog.ShowDialog(); //shows save file dialog
-            if (result == true)
+            if (e.Delta != 0)
             {
-                Console.WriteLine("writing to: " + dialog.FileName); //prints the file to save
-
-                var wClient = new WebClient();
-                wClient.DownloadFile(url, dialog.FileName);
+                img.Width = Math.Max(50, img.Width + (int)e.Delta);
+                img.Height = Math.Max(50, img.Height + (int)e.Delta);
             }
-
-        }
-
-        private double _zoomValue = 1.0;
-
-        private void img_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            if (e.Delta > 0)
-            {
-                _zoomValue += 0.1;
-            }
-            else
-            {
-                _zoomValue -= 0.1;
-            }
-
-            ScaleTransform scale = new ScaleTransform(_zoomValue, _zoomValue);
-            img.LayoutTransform = scale;
-            e.Handled = true;
-        }
-
-        private void Window_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //Creating a Right Click context menu
-            ContextMenu cm = new ContextMenu();
-
-            //Adding Download Menu Item to Context Menu
-            MenuItem downloadMenu = new MenuItem();
-            downloadMenu.Header = "Download";
-            downloadMenu.Click += (s, e) =>
-            {
-                DownloadImage(img.Source.ToString());
-            };
-            cm.Items.Add(downloadMenu);
-
-            //Adding Close Menu Item to Context Menu
-            MenuItem copyImageAddressMenu = new MenuItem();
-            copyImageAddressMenu.Header = "Copy Image Address";
-            copyImageAddressMenu.Click += (s, e) =>
-            {
-                Clipboard.SetText(img.Source.ToString());
-            };
-            cm.Items.Add(copyImageAddressMenu);
-
-            //Adding Close Menu Item to Context Menu
-            MenuItem closeMenu = new MenuItem();
-            closeMenu.Header = "Close";
-            //closeMenu.Click += (s, e) =>
-            //{
-            //    Close();
-            //};
-            cm.Items.Add(closeMenu);
-
-
-            cm.StaysOpen = true;
-            this.ContextMenu = cm;
         }
     }
 }

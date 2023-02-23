@@ -9,5 +9,7 @@ namespace FlickrImageFinder.Models
     public class ImageModel
     {
         public string Img { get; set; }
+        public string Title { get; set; }
+
     }
 }

@@ -10,7 +10,6 @@ namespace FlickrImageFinder.Commands
         private Action<object> execute;
 
         public event EventHandler CanExecuteChanged;
-
         public ButtonCommand(Action<object> execute)
         {
             this.execute = execute;
@@ -19,10 +18,6 @@ namespace FlickrImageFinder.Commands
         public void Execute(object parameter)
         {
             this.execute(parameter);
-        }
-        protected void OnCanExecuteChanged()
-        {
-            CanExecuteChanged?.Invoke(this, new EventArgs());
         }
     }
 }

@@ -9,17 +9,21 @@ namespace FlickrImageFinder.Models
 {
     public class SearchResultModel
     {
+        public Photos photos { get; set; }
+    }
+
+    public class Photos
+    {
+        public Photo[] photo { get; set; }
+    }
+
+    public class Photo
+    {
+        public string id { get; set; }
+        public string server { get; set; }
+        public string secret { get; set; }
+        public int farm { get; set; }
         public string title { get; set; }
-        public Items[] items { get; set; }
-    }
 
-    public class Items
-    {
-        public Link media { get; set; }
-    }
-
-    public class Link
-    {
-        public string m { get; set; }
     }
 }

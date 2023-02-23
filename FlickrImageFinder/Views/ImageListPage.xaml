@@ -21,10 +21,11 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button x:Name="btn" ToolTip="{Binding Img}" 
+                        <Button x:Name="btn" ToolTip="{Binding Title}" 
                                 Cursor="Hand" 
+                                Content="{Binding Img}"
                                 Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext.SelectImageCommand}"
-                                CommandParameter="{Binding ElementName=btn,Path=ToolTip}" >
+                                CommandParameter="{Binding ElementName=btn,Path=Content}" >
                             <Button.Template>
                                 <ControlTemplate>
                                     <Image     MouseEnter="img_MouseEnter"

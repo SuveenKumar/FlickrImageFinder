@@ -17,9 +17,7 @@ namespace FlickrImageFinder.Services
         public T FindResult(string url)
         {
             var jsonstr = Read(url);
-            var json = jsonstr.Substring(15);
-            var res = json.Remove(json.Length - 1, 1);
-            T info = JsonSerializer.Deserialize<T>(res);
+            T info = JsonSerializer.Deserialize<T>(jsonstr);
             return info;
         }
 

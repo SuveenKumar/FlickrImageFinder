@@ -31,29 +31,30 @@ namespace FlickrImageFinder.ViewModels
 
         public ICommand SelectImageCommand { get; set; }
 
-        public Action<ImageModel> GetSelectedImage;
+        private Action<ImageModel> GetSelectedImage;
         public ImageListPageViewModel()
         {
-            _isNoResultVisible = false;
+            IsNoResultVisible = false;
             SelectImageCommand = new ButtonCommand(ExecuteSelectCommand);
         }
 
-        public void UpdateImageList(ObservableCollection<ImageModel> imageList)
+        public void UpdateImageList(ObservableCollection<ImageModel> imageList,Action<ImageModel> displaySelectedImageFn)
         {
+            GetSelectedImage = displaySelectedImageFn;
             ImageList = imageList;
             if (ImageList != null)
             {
                 if (ImageList.Count == 0)
                 {
-                    _isNoResultVisible = true;
+                    IsNoResultVisible = true;
                 }
                 else
                 {
-                    _isNoResultVisible = false;
+                    IsNoResultVisible = false;
                 }
             }
         }
-        public void ExecuteSelectCommand(object parameter)
+        private void ExecuteSelectCommand(object parameter)
         {
             var curImg = new ImageModel() { Img = (string)parameter };
             GetSelectedImage.Invoke(curImg);

@@ -25,22 +25,6 @@ namespace FlickrImageFinder.Views
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //var currentBtn = sender as Button;
-
-            //if (currentBtn != null)
-            //{
-            //    Image currentImage = VisualTreeHelper.GetChild(currentBtn, 0) as Image;
-            //    var src = currentImage.Source;
-            //    ImageWindow imageWindow = new ImageWindow();
-            //    imageWindow.img.Source = src;
-            //    imageWindow.ShowDialog();
-            //    Console.WriteLine(src);
-            //}
-
-        }
-
         private void img_MouseEnter(object sender, MouseEventArgs e)
         {
             ((Image)sender).Opacity = 0.5;

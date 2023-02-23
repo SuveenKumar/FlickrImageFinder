@@ -24,7 +24,7 @@
         <usercontrols:SearchPanel
             Margin="20,0,0,0"
             Grid.ColumnSpan="2"
-            SearchText="{Binding Path=SearchStr,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+            SearchText="{Binding Path=SearchStr,Mode=TwoWay}"
             FindCommand="{Binding FindButtonCommand}"
             BackCommand="{Binding BackButtonCommand}"
             Enabled="{Binding BackButtonEnabled}"/>

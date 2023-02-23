@@ -10,9 +10,14 @@ using System.Windows.Media;
 
 namespace FlickrImageFinder.CustomControls
 {
+    public enum SearchBoxType
+    {
+        NOTEXT,
+        TEXT
+    }
     public class SearchBox:TextBox
     {
-        public bool IsTextPresent { get; set; }
+        public SearchBoxType searchBoxType { get; set; }
 
         public SearchBox()
         {
@@ -32,10 +37,10 @@ namespace FlickrImageFinder.CustomControls
         {
             GotFocus += (s, e) =>
             {
-                if(Text == Constants.PlaceHolderText)
+                if(searchBoxType==SearchBoxType.NOTEXT)
                 {
                     Text = "";
-                    IsTextPresent = false;
+                    searchBoxType = SearchBoxType.TEXT;
                     Foreground = Brushes.Black;
                     FontStyle = FontStyles.Normal;
                 }
@@ -45,7 +50,7 @@ namespace FlickrImageFinder.CustomControls
             {
                 if (Text.Length == 0)
                 {
-                    IsTextPresent = false;
+                    searchBoxType = SearchBoxType.NOTEXT;
                     Text = Constants.PlaceHolderText;
                     Foreground = Brushes.Gray;
                     FontStyle = FontStyles.Italic;
@@ -56,7 +61,7 @@ namespace FlickrImageFinder.CustomControls
             {
                 if (Text.Length == 0 && !IsFocused)
                 {
-                    IsTextPresent = false;
+                    searchBoxType = SearchBoxType.NOTEXT;
                     Text = Constants.PlaceHolderText;
                     Foreground = Brushes.Gray;
                     FontStyle = FontStyles.Italic;

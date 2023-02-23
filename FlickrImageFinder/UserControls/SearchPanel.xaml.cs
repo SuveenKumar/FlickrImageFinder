@@ -1,4 +1,5 @@
 ﻿using FlickrImageFinder.Common;
+using FlickrImageFinder.CustomControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,13 +23,14 @@ namespace FlickrImageFinder.UserControls
     /// </summary>
     public partial class SearchPanel : UserControl
     {
+        public SearchBoxType searchBoxType;
         public SearchPanel()
         {
             InitializeComponent();
 
             searchBox.TextChanged += (o,e) => 
             {
-                if (searchBox.Text.Length == 0 || searchBox.Text== Constants.PlaceHolderText)
+                if (searchBox.Text.Length == 0 || searchBox.searchBoxType==SearchBoxType.NOTEXT)
                 {
                     findBtn.IsEnabled = false;
                 }
