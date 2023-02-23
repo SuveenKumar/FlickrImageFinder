@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:FlickrImageFinder.UserControls" xmlns:customcontrols="clr-namespace:FlickrImageFinder.CustomControls"
+             xmlns:local="clr-namespace:FlickrImageFinder.UserControls" 
+             
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="1000">
     <Grid>
@@ -28,7 +29,7 @@
                     </ControlTemplate>
                 </Button.Template>-->
             </Button>
-            <customcontrols:SearchBox
+            <TextBox
                 x:Name="searchBox"
                 Grid.Column="2"
                 FontSize="20"

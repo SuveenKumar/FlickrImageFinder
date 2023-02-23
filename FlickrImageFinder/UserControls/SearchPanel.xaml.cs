@@ -1,5 +1,4 @@
 ﻿using FlickrImageFinder.Common;
-using FlickrImageFinder.CustomControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace FlickrImageFinder.UserControls
 {
@@ -23,14 +23,16 @@ namespace FlickrImageFinder.UserControls
     /// </summary>
     public partial class SearchPanel : UserControl
     {
-        public SearchBoxType searchBoxType;
         public SearchPanel()
         {
             InitializeComponent();
+            searchBox.Text = Constants.PlaceHolderText;
+            searchBox.Foreground = Brushes.Gray;
+            searchBox.FontStyle = FontStyles.Italic;
 
             searchBox.TextChanged += (o,e) => 
             {
-                if (searchBox.Text.Length == 0 || searchBox.searchBoxType==SearchBoxType.NOTEXT)
+                if (searchBox.Text.Length == 0 || searchBox.Text==Constants.PlaceHolderText)
                 {
                     findBtn.IsEnabled = false;
                 }
@@ -38,8 +40,38 @@ namespace FlickrImageFinder.UserControls
                 {
                     findBtn.IsEnabled = true;
                 }
+                if (searchBox.Text.Length==0 && !searchBox.IsFocused)
+                {
+                    searchBox.Text = Constants.PlaceHolderText;
+                    searchBox.Foreground = Brushes.Gray;
+                    searchBox.FontStyle = FontStyles.Italic;
+                }
             };
 
+            GotFocus += (s, e) =>
+            {
+                if (searchBox.Text == Constants.PlaceHolderText)
+                {
+                    searchBox.Text = "";
+                    searchBox.Foreground = Brushes.Black;
+                    searchBox.FontStyle = FontStyles.Normal;
+                }
+            };
+
+            LostFocus += (s, e) =>
+            {
+                if (searchBox.Text.Length == 0 && !backBtn.IsEnabled)
+                {
+                    searchBox.Text = Constants.PlaceHolderText;
+                    searchBox.Foreground = Brushes.Gray;
+                    searchBox.FontStyle = FontStyles.Italic;
+                }
+                if (searchBox.Text.Length == 0 && backBtn.IsEnabled)
+                {
+                    searchBox.Foreground = Brushes.Black;
+                    searchBox.FontStyle = FontStyles.Normal;
+                }
+            };
         }
         public bool Enabled
         {
