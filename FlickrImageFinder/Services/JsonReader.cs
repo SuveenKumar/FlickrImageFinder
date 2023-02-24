@@ -11,16 +11,18 @@ namespace FlickrImageFinder.Services
 
         public JsonReader()
         {
-            webclient = new WebClient();
+            webclient = new WebClient(); //Initialize web client
         }
         
-        public T FindResult(string url)
+        // Method for deserializing json string into T model
+        public T FindResult(string url)   
         {
             var jsonstr = Read(url);
             T info = JsonSerializer.Deserialize<T>(jsonstr);
             return info;
         }
 
+        // For reading string content from url
         private string Read(string url)
         {
             string s= webclient.DownloadString(url);

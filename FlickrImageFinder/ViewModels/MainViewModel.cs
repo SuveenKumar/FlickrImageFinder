@@ -17,7 +17,7 @@ namespace FlickrImageFinder.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private ViewModelBase _currentViewModel;
-        public ViewModelBase CurrentViewModel 
+        public ViewModelBase CurrentViewModel // Bind to Frame's content 
         {
             get
             {
@@ -30,7 +30,7 @@ namespace FlickrImageFinder.ViewModels
             }
         }
         private bool _backButtonEnabled;
-        public bool BackButtonEnabled 
+        public bool BackButtonEnabled // Bind to back button isEnabled
         {
             get 
             {
@@ -44,7 +44,7 @@ namespace FlickrImageFinder.ViewModels
         }
 
         private string _searchStr;
-        public string SearchStr 
+        public string SearchStr //Bind to Search box text.
         { 
             get 
             {
@@ -55,11 +55,11 @@ namespace FlickrImageFinder.ViewModels
                 _searchStr = value; 
                 OnPropertyChanged(nameof(SearchStr));
             }
-        } //Bind to Search box text.
+        }
 
-        private List<string> SearchHistory { get; set; }
+        private List<string> SearchHistory { get; set; } // For restriving earlier search results
         public ICommand FindButtonCommand { get; }  //Bind to Find button
-        public ICommand BackButtonCommand { get; }  //Bind to Find button
+        public ICommand BackButtonCommand { get; }  //Bind to Back button
         public MainViewModel()
         {
             BackButtonEnabled = false;
@@ -68,6 +68,7 @@ namespace FlickrImageFinder.ViewModels
             BackButtonCommand = new ButtonCommand(ExecuteBackCommand);
         }
 
+        // Handling Find button press
         private void ExecuteFindCommand(object obj)
         {
             //Return when query string is null
@@ -76,25 +77,18 @@ namespace FlickrImageFinder.ViewModels
             BackButtonEnabled = true;
         }
 
+        //Start search process with searched string
         private void StartSearchProcess()
         {
             FlickerApi.LoadApi(SearchStr);
             var result = FlickerApi.Images;
-            var imgUrl = new ObservableCollection<ImageModel>();
-
-            foreach (var i in result)
-            {
-                imgUrl.Add(new ImageModel() 
-                {
-                    Img=i.Img,
-                    Title=i.Title
-                });
-            }
-            DisplayImageResults(imgUrl);
+            DisplayImageResults(result);
         }
 
+        // Handling Back button press
         private void ExecuteBackCommand(object obj)
         {
+            //If current page is image List page then go back to previous search result
             if (CurrentViewModel.GetType() == typeof(ImageListPageViewModel))
             {
                 if(SearchHistory.Count == 1) 
@@ -113,16 +107,21 @@ namespace FlickrImageFinder.ViewModels
             }
             else
             {
+                //If current page is select page List then show current results in image list page
                 SearchStr = SearchHistory[SearchHistory.Count - 1];
                 StartSearchProcess();
             }
         }
+
+        //Display list of image results
         private void DisplayImageResults(ObservableCollection<ImageModel> list)
         {
             CurrentViewModel = new ImageListPageViewModel();
             var imageListVM = CurrentViewModel as ImageListPageViewModel;
             imageListVM.UpdateImageList(list, DisplaySelectedImage);
         }
+
+        //Display selected image
         private void DisplaySelectedImage(ImageModel image)
         {
             CurrentViewModel = new ImageSelectPageViewModel();

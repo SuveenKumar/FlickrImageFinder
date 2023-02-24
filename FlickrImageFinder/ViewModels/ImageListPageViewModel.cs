@@ -13,9 +13,9 @@ namespace FlickrImageFinder.ViewModels
 {
     public class ImageListPageViewModel : ViewModelBase
     {
-        public ObservableCollection<ImageModel> ImageList { get; set; }  //Bind to Image Panel Items source.
+        public ObservableCollection<ImageModel> ImageList { get; set; }  //Bind to Image List Page's Items source.
 
-        private bool _isNoResultVisible;
+        private bool _isNoResultVisible; // Bind to No result textbox visibility
         public bool IsNoResultVisible
         {
             get
@@ -29,15 +29,18 @@ namespace FlickrImageFinder.ViewModels
             }
         }
 
-        public ICommand SelectImageCommand { get; set; }
+        public ICommand SelectImageCommand { get; set; } //Command for selecting image
 
-        private Action<ImageModel> GetSelectedImage;
+        private Action<ImageModel> GetSelectedImage; // Handler for notifying and getting selected image
+
         public ImageListPageViewModel()
         {
+            //Initializing Defaults
             IsNoResultVisible = false;
             SelectImageCommand = new ButtonCommand(ExecuteSelectCommand);
         }
 
+        // Function for updating image list and registering handler
         public void UpdateImageList(ObservableCollection<ImageModel> imageList,Action<ImageModel> displaySelectedImageFn)
         {
             GetSelectedImage = displaySelectedImageFn;
@@ -54,6 +57,8 @@ namespace FlickrImageFinder.ViewModels
                 }
             }
         }
+
+        // Function pointed to 
         private void ExecuteSelectCommand(object parameter)
         {
             var curImg = new ImageModel() { Img = (string)parameter };

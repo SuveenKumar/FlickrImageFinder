@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FlickrImageFinder.ViewModels.ViewModelBase" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FlickrImageFinder.ViewModels.MainViewModel">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQEAKAAAAQAAEAAASAACAAAAAAgAAgAAAAgAAAAEAA=</HashCode>
+      <FileName>ViewModels\MainViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlickrImageFinder.ViewModels.ImageSelectPageViewModel">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAAg=</HashCode>
+      <FileName>ViewModels\ImageSelectPageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlickrImageFinder.ViewModels.ImageListPageViewModel">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAiAAAAAAAAAQABAAAAAAAAAAAAAABAAAE=</HashCode>
+      <FileName>ViewModels\ImageListPageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlickrImageFinder.Commands.ButtonCommand">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\ButtonCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FlickrImageFinder.Common.Constants">
+    <Position X="8.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlickrImageFinder.Models.ImageModel">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ImageModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlickrImageFinder.Models.SearchResultModel">
+    <Position X="6.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\SearchResultModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlickrImageFinder.Models.Photos">
+    <Position X="6.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\SearchResultModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlickrImageFinder.Models.Photo">
+    <Position X="6.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAiI=</HashCode>
+      <FileName>Models\SearchResultModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlickrImageFinder.Services.FlickerApi">
+    <Position X="10" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAEAABAAABAAAIgAAAg=</HashCode>
+      <FileName>Services\FlickerApi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlickrImageFinder.Services.JsonReader&lt;T&gt;">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAgEA=</HashCode>
+      <FileName>Services\JsonReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlickrImageFinder.Views.ImageListPage">
+    <Position X="2.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ImageListPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FlickrImageFinder.MainWindow">
+    <Position X="0.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FlickrImageFinder.Views.ImageSelectPage">
+    <Position X="4" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ImageSelectPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FlickrImageFinder.UserControls.Logo">
+    <Position X="8.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserControls\Logo.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FlickrImageFinder.UserControls.SearchPanel">
+    <Position X="6.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACIAAACAAAACAAAAEAABEAAAAAAEAAAA=</HashCode>
+      <FileName>UserControls\SearchPanel.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

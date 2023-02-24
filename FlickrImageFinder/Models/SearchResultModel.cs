@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FlickrImageFinder.Models
+﻿namespace FlickrImageFinder.Models
 {
+    //Main Response model
     public class SearchResultModel
     {
         public Photos photos { get; set; }
     }
 
+    //Sub model for SearchResultModel
     public class Photos
     {
         public Photo[] photo { get; set; }
     }
 
+    //Sub model for Photos model
     public class Photo
     {
         public string id { get; set; }
@@ -24,6 +20,5 @@ namespace FlickrImageFinder.Models
         public string secret { get; set; }
         public int farm { get; set; }
         public string title { get; set; }
-
     }
 }
